@@ -1,0 +1,45 @@
+diff -ur NuSMV-2.4.0/nusmv/doc/html/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/html/Makefile.am
+--- NuSMV-2.4.0/nusmv/doc/html/Makefile.am	2005-03-03 12:05:28.000000000 +0100
++++ NuSMV-2.4.0-ok/nusmv/doc/html/Makefile.am	2006-10-03 17:30:35.000000000 +0200
+@@ -46,7 +46,7 @@
+ docs: helpfiles
+ 
+ helpfiles: 
+-	cd $(top_builddir) && $(SHELL) helpers/extract_doc .
++	cd $(top_builddir) && /bin/bash helpers/extract_doc .
+ 
+ install: docs install-am
+ 
+diff -ur NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.am
+--- NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.am	2005-05-09 10:30:18.000000000 +0200
++++ NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.am	2006-10-03 17:03:50.000000000 +0200
+@@ -62,7 +62,7 @@
+ 
+ if HAVE_LATEX
+ install-data-local: tutorial.ps
+-	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
++	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
+ 
+ else 
+ install-data-local:
+diff -ur NuSMV-2.4.0/nusmv/doc/user-man/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.am
+--- NuSMV-2.4.0/nusmv/doc/user-man/Makefile.am	2005-10-26 11:11:25.000000000 +0200
++++ NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.am	2006-10-03 17:04:09.000000000 +0200
+@@ -67,7 +67,7 @@
+ 
+ if HAVE_LATEX
+ install-data-local: nusmv.ps
+-	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
++	$(install_sh_DATA) nusmv.ps $(DESTDIR)$(datadir)/nusmv/doc/nusmv.ps
+ else 
+ install-data-local:
+ 	@echo Cannot generate manual: latex not found
+diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in
+--- NuSMV-2.4.0/nusmv/helpers/extract_doc.in	2005-03-03 13:12:59.000000000 +0100
++++ NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in	2006-10-03 17:29:10.000000000 +0200
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/bash
+ 
+ # FileName	[ extract_doc.in ]
+ #
