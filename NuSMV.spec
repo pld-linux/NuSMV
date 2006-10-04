@@ -4,6 +4,7 @@
 #	- update all BRs
 #
 Summary:	New Symbolic Model Verifier
+Summary(pl):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.4.0
 Release:	0.1
@@ -41,11 +42,25 @@ SAT-based model checking component that includes an RBC-based Bounded
 Model Checker, connected to the SIM SAT library developed by the
 University of Genova.
 
+%description -l pl
+NuSVM to reimplementacja i rozszerzenie SMV - pierwszego weryfikatora
+modeli opartego na BDD. NuSMV zosta³ zaprojektowany w otwartej
+architekturze sprawdzania modeli, przez co mo¿e byæ niezawodnie
+u¿ywany do weryfikacji projektów przemys³owych, jako podstawa w³asnych
+narzêdzi weryfikuj±cych, jako poligon dla technik weryfikacji
+formalnej oraz stosowany w innych obszarach badañ.
+
+NuSMV2 ³±czy komponent sprawdzaj±cy modele oparty na BDD,
+wykorzystuj±cy bibliotekê CUDD stworzon± przez Fabio Somenziniego w
+Colorado University i komponent sprawdzaj±cy modele oparty na SAT
+zawieraj±cy weryfikator modeli ograniczonych oparty na RBC, po³±czony
+z bibliotek± SIM SAT stworzon± przez University of Genova.
+
 %package devel
 Summary:	Header files for NuSMV
 Summary(pl):	Pliki nag³ówkowe NuSMV
 Group:		Development/Libraries
-#Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This is the package containing the header files for NuSMV.
@@ -79,7 +94,6 @@ touch src/sa/Makefile.in src/sa/fmea/Makefile.in src/sa/stsa/Makefile.in \
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-cp -f /usr/share/automake/config.sub .
 %configure \
 	--enable-shared \
 	--enable-psl
@@ -117,11 +131,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libnusmv*.so
+%{_libdir}/libnusmv*.la
 %{_includedir}/cudd*
 %{_includedir}/nusmv
-%{_libdir}/pkgconfig/*
-%attr(755,root,root) %{_libdir}/libnusmv*.la
-%attr(755,root,root) %{_libdir}/libnusmv*.so
+%{_pkgconfigdir}/*
 
 %files static
 %defattr(644,root,root,755)
