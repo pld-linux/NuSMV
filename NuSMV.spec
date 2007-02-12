@@ -4,7 +4,7 @@
 #	- update all BRs
 #
 Summary:	New Symbolic Model Verifier
-Summary(pl.UTF-8):   Nowy weryfikator modeli symbolicznych
+Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.4.0
 Release:	0.1
@@ -58,7 +58,7 @@ z biblioteką SIM SAT stworzoną przez University of Genova.
 
 %package devel
 Summary:	Header files for NuSMV
-Summary(pl.UTF-8):   Pliki nagłówkowe NuSMV
+Summary(pl.UTF-8):	Pliki nagłówkowe NuSMV
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -70,7 +70,7 @@ Ten pakiet zawiera pliki nagłówkowe NuSMV.
 
 %package static
 Summary:	Static NuSMV library
-Summary(pl.UTF-8):   Statyczna biblioteka NuSMV
+Summary(pl.UTF-8):	Statyczna biblioteka NuSMV
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
