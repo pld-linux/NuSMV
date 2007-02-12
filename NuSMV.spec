@@ -4,7 +4,7 @@
 #	- update all BRs
 #
 Summary:	New Symbolic Model Verifier
-Summary(pl):	Nowy weryfikator modeli symbolicznych
+Summary(pl.UTF-8):   Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.4.0
 Release:	0.1
@@ -42,42 +42,42 @@ SAT-based model checking component that includes an RBC-based Bounded
 Model Checker, connected to the SIM SAT library developed by the
 University of Genova.
 
-%description -l pl
+%description -l pl.UTF-8
 NuSVM to reimplementacja i rozszerzenie SMV - pierwszego weryfikatora
-modeli opartego na BDD. NuSMV zosta³ zaprojektowany w otwartej
-architekturze sprawdzania modeli, przez co mo¿e byæ niezawodnie
-u¿ywany do weryfikacji projektów przemys³owych, jako podstawa w³asnych
-narzêdzi weryfikuj±cych, jako poligon dla technik weryfikacji
-formalnej oraz stosowany w innych obszarach badañ.
+modeli opartego na BDD. NuSMV zostaÅ‚ zaprojektowany w otwartej
+architekturze sprawdzania modeli, przez co moÅ¼e byÄ‡ niezawodnie
+uÅ¼ywany do weryfikacji projektÃ³w przemysÅ‚owych, jako podstawa wÅ‚asnych
+narzÄ™dzi weryfikujÄ…cych, jako poligon dla technik weryfikacji
+formalnej oraz stosowany w innych obszarach badaÅ„.
 
-NuSMV2 ³±czy komponent sprawdzaj±cy modele oparty na BDD,
-wykorzystuj±cy bibliotekê CUDD stworzon± przez Fabio Somenziniego w
-Colorado University i komponent sprawdzaj±cy modele oparty na SAT
-zawieraj±cy weryfikator modeli ograniczonych oparty na RBC, po³±czony
-z bibliotek± SIM SAT stworzon± przez University of Genova.
+NuSMV2 Å‚Ä…czy komponent sprawdzajÄ…cy modele oparty na BDD,
+wykorzystujÄ…cy bibliotekÄ™ CUDD stworzonÄ… przez Fabio Somenziniego w
+Colorado University i komponent sprawdzajÄ…cy modele oparty na SAT
+zawierajÄ…cy weryfikator modeli ograniczonych oparty na RBC, poÅ‚Ä…czony
+z bibliotekÄ… SIM SAT stworzonÄ… przez University of Genova.
 
 %package devel
 Summary:	Header files for NuSMV
-Summary(pl):	Pliki nag³ówkowe NuSMV
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe NuSMV
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This is the package containing the header files for NuSMV.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe NuSMV.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe NuSMV.
 
 %package static
 Summary:	Static NuSMV library
-Summary(pl):	Statyczna biblioteka NuSMV
+Summary(pl.UTF-8):   Statyczna biblioteka NuSMV
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static NuSMV library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka NuSMV.
 
 %prep
