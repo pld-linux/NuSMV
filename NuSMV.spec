@@ -6,12 +6,12 @@
 Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
-Version:	2.4.0
+Version:	2.4.3
 Release:	0.1
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
-# Source0-md5:	cd1328fc70e9f48d2c4a96c0b8eb5a28
+# Source0-md5:	f9fb88139b388c6ba8d31b0ad1ce5254
 Patch0:		%{name}-build.patch
 URL:		http://nusmv.irst.itc.it/
 BuildRequires:	autoconf
@@ -86,9 +86,12 @@ Statyczna biblioteka NuSMV.
 
 %build
 cd nusmv
-mkdir -p src/{sa/{fmea,stsa},mbp,mathsat}
-touch src/sa/Makefile.in src/sa/fmea/Makefile.in src/sa/stsa/Makefile.in \
-	src/mbp/Makefile.in src/mathsat/Makefile.in
+#mkdir -p src/{sa/{fmea,stsa},mbp,mathsat}
+#touch src/sa/Makefile.in src/sa/fmea/Makefile.in src/sa/stsa/Makefile.in \
+#	src/mbp/Makefile.in src/mathsat/Makefile.in
+
+ICFLAGS="%{rpmcflags}"
+export ICFLAGS
 
 %{__aclocal}
 %{__autoconf}
