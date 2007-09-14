@@ -43,3 +43,34 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
  
  # FileName	[ extract_doc.in ]
  #
+--- NuSMV-2.4.3/cudd-2.4.1.0/Makefile.orig	2007-05-10 19:37:13.000000000 +0200
++++ NuSMV-2.4.3/cudd-2.4.1.0/Makefile	2007-09-14 15:33:55.000000000 +0200
+@@ -55,7 +55,7 @@
+ # These four are typical settings for optimized code with gcc.  The
+ # last two also work with icc/ecc.
+ #ICFLAGS	= -g -O6 -Wall
+-ICFLAGS	= -g -O6
++#ICFLAGS	= -g -O6
+ #ICFLAGS	= -g -O3 -Wall
+ #ICFLAGS	= -g -O3
+ 
+@@ -69,7 +69,7 @@
+ # Gcc 2.8.1 or higher on i686.
+ #XCFLAGS	= -mcpu=pentiumpro -malign-double -DHAVE_IEEE_754 -DBSD
+ # Gcc 3.2.2 or higher on i686.
+-XCFLAGS	= -mcpu=pentium4 -malign-double -DHAVE_IEEE_754 -DBSD -DSIZEOF_VOID_P=4 -DSIZEOF_LONG=4 -DSIZEOF_INT=4
++XCFLAGS	= -malign-double -DHAVE_IEEE_754 -DBSD -DSIZEOF_VOID_P=4 -DSIZEOF_LONG=4 -DSIZEOF_INT=4
+ # Icc on i686.
+ #XCFLAGS	= -ansi -align -ip -DHAVE_IEEE_754 -DBSD
+ # Gcc on ia64.
+--- NuSMV-2.4.3/cudd-2.4.1.0/Makefile_64bit~	2007-03-14 11:31:56.000000000 +0100
++++ NuSMV-2.4.3/cudd-2.4.1.0/Makefile_64bit	2007-09-14 15:35:25.000000000 +0200
+@@ -55,7 +55,7 @@
+ # These four are typical settings for optimized code with gcc.  The
+ # last two also work with icc/ecc.
+ #ICFLAGS	= -g -O6 -Wall
+-ICFLAGS	= -g -O6
++#ICFLAGS	= -g -O6
+ #ICFLAGS	= -g -O3 -Wall
+ #ICFLAGS	= -g -O3
+ 
