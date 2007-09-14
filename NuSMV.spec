@@ -90,6 +90,11 @@ cd nusmv
 ICFLAGS="%{rpmcflags}"
 export ICFLAGS
 
+%ifarch %{x8664}
+cp -f ../cudd-*/Makefile ../cudd-*/Makefile_32bit
+cp -f ../cudd-*/Makefile_64bit ../cudd-*/Makefile
+%endif
+
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
