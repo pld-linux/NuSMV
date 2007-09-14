@@ -85,15 +85,17 @@ Statyczna biblioteka NuSMV.
 %patch0 -p1
 
 %build
-cd nusmv
-
 ICFLAGS="%{rpmcflags}"
 export ICFLAGS
 
 %ifarch %{x8664}
-cp -f ../cudd-*/Makefile ../cudd-*/Makefile_32bit
-cp -f ../cudd-*/Makefile_64bit ../cudd-*/Makefile
+cd cudd-*
+cp -f Makefile Makefile_32bit
+cp -f Makefile_64bit Makefile
+cd ..
 %endif
+
+cd nusmv
 
 %{__aclocal}
 %{__autoconf}
