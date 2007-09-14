@@ -74,3 +74,23 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
  #ICFLAGS	= -g -O3 -Wall
  #ICFLAGS	= -g -O3
  
+--- NuSMV-2.4.3/nusmv/src/Makefile.am~	2006-06-28 18:16:16.000000000 +0200
++++ NuSMV-2.4.3/nusmv/src/Makefile.am	2007-09-14 15:48:35.000000000 +0200
+@@ -91,4 +91,6 @@
+ 	$(mbp_libs)              \
+ 	$(sa_libs)               \
+ 	$(mathsat_libs)          \
++	$(expat_libs)            \
++	$(readline_libs)         \
+ 	sm/libsm.la              
+--- NuSMV-2.4.3/nusmv/Makefile.am~	2007-03-28 15:49:05.000000000 +0200
++++ NuSMV-2.4.3/nusmv/Makefile.am	2007-09-14 15:48:37.000000000 +0200
+@@ -116,7 +116,7 @@
+ libnusmv_la_LIBADD = $(top_builddir)/src/libnusmvcore.la \
+ 	-L$(top_srcdir)/$(CUDD_DIR)/lib \
+ 	-lcudd -lcudd_util -lmtr -lst   \
+-        $(readline_libs) $(zchaff_libs) $(minisat_libs) $(expat_libs)
++        $(zchaff_libs) $(minisat_libs)
+ 
+ libnusmv_la_DEPENDENCIES = $(top_builddir)/src/libnusmvcore.la $(CUDD_DEPENDENCY)
+ 
