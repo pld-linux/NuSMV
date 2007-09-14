@@ -1,13 +1,12 @@
 #
 # TODO:
 #	- external cudd
-#	- update all BRs
 #
 Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.4.3
-Release:	0.1
+Release:	1
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
@@ -24,8 +23,11 @@ BuildRequires:	lynx
 BuildRequires:	perl-base
 BuildRequires:	readline-devel
 BuildRequires:	tetex-dvips
+BuildRequires:	tetex-format-latex
+BuildRequires:	tetex-latex-bibtex
+BuildRequires:	tetex-latex-carlisle
+BuildRequires:	tetex-latex-psnfss
 BuildRequires:	tetex-makeindex
-BuildRequires:	tetex-latex
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
