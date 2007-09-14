@@ -86,9 +86,6 @@ Statyczna biblioteka NuSMV.
 
 %build
 cd nusmv
-#mkdir -p src/{sa/{fmea,stsa},mbp,mathsat}
-#touch src/sa/Makefile.in src/sa/fmea/Makefile.in src/sa/stsa/Makefile.in \
-#	src/mbp/Makefile.in src/mathsat/Makefile.in
 
 ICFLAGS="%{rpmcflags}"
 export ICFLAGS
