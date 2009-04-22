@@ -1,17 +1,25 @@
 #
-# TODO:
-#	- external cudd
+# Conditional build:
+%bcond_with	zchaff	# enable zChaff SAT Solver (zChaff is for non-commercial purposes only)
+#
+%define	zchaff_ver	2008.10.12
+%define minisat_ver	070721
 #
 Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.4.3
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
 # Source0-md5:	f9fb88139b388c6ba8d31b0ad1ce5254
+Source1:	http://minisat.se/downloads/minisat2-%{minisat_ver}.zip
+# Source1-md5:	fb12db9a13f86a2133758abfba239546
+Source2:	http://www.princeton.edu/~chaff/zchaff/zchaff.%{zchaff_ver}.zip
+# Source2-md5:	7398b3e984a5046755cb3ef6b0e44d2e
 Patch0:		%{name}-build.patch
+Patch1:		%{name}-solvers.patch
 URL:		http://nusmv.irst.itc.it/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -22,12 +30,13 @@ BuildRequires:	lynx
 #BuildRequires:	links
 BuildRequires:	perl-base
 BuildRequires:	readline-devel
-BuildRequires:	tetex-dvips
-BuildRequires:	tetex-format-latex
-BuildRequires:	tetex-latex-bibtex
-BuildRequires:	tetex-latex-carlisle
-BuildRequires:	tetex-latex-psnfss
-BuildRequires:	tetex-makeindex
+BuildRequires:	texlive-dvips
+BuildRequires:	texlive-latex
+BuildRequires:	texlive-latex-bibtex
+BuildRequires:	texlive-latex-carlisle
+BuildRequires:	texlive-latex-extend
+BuildRequires:	texlive-latex-psnfss
+BuildRequires:	texlive-makeindex
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -86,26 +95,42 @@ Statyczna biblioteka NuSMV.
 %setup -q
 %patch0 -p1
 
+install %{SOURCE1} MiniSat/
+install %{SOURCE2} zchaff/
+
+%patch1 -p1
+
 %build
 ICFLAGS="%{rpmcflags}"
 export ICFLAGS
 
+cd MiniSat/
+OPTFLAGS="%{rpmcxxflags}" ./build.sh
+%if %{with zchaff}
+cd ../zchaff
+OPTFLAGS="%{rpmcxxflags}" ./build.sh
+%endif
+cd ../cudd-*
 %ifarch %{x8664}
-cd cudd-*
 cp -f Makefile Makefile_32bit
 cp -f Makefile_64bit Makefile
-cd ..
 %endif
+%{__make}
+cd ..
 
 cd nusmv
 
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
 %configure \
 	--enable-shared \
-	--enable-psl
+	--enable-psl \
+	%{?with_zchaff:--enable-zchaff} \
+	--enable-minisat
+
 %{__make}
 %{__make} docs
 
@@ -117,6 +142,8 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 	DESTDIR=$RPM_BUILD_ROOT
 
 cp -a nusmv/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+
+rm -r $RPM_BUILD_ROOT%{_datadir}/nusmv/{doc,examples,LGPL*,NEWS,README*}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -131,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc nusmv/doc/user-man/nusmv.p*
 %doc nusmv/doc/html
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %ghost %{_libdir}/libnusmv*.so.0
 %attr(755,root,root) %{_libdir}/libnusmv*.so.*.*.*
 %dir %{_datadir}/nusmv
 %{_datadir}/nusmv/contrib
