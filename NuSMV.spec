@@ -138,7 +138,7 @@ cd nusmv
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-%{__make} -C nusmv install \
+%{__make} -j1 -C nusmv install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 cp -a nusmv/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
