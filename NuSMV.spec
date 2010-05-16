@@ -37,6 +37,7 @@ BuildRequires:	texlive-latex-carlisle
 BuildRequires:	texlive-latex-extend
 BuildRequires:	texlive-latex-psnfss
 BuildRequires:	texlive-makeindex
+BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
