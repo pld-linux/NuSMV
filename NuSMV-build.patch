@@ -1,39 +1,32 @@
-diff -ur NuSMV-2.4.0/nusmv/doc/html/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/html/Makefile.am
---- NuSMV-2.4.0/nusmv/doc/html/Makefile.am	2005-03-03 12:05:28.000000000 +0100
-+++ NuSMV-2.4.0-ok/nusmv/doc/html/Makefile.am	2006-10-03 17:30:35.000000000 +0200
-@@ -46,7 +46,7 @@
- docs: helpfiles
+--- NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.in	2005-05-09 10:30:18.000000000 +0200
++++ NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.in	2006-10-03 17:03:50.000000000 +0200
+@@ -470,9 +470,9 @@
+ @HAVE_PDFLATEXETAL_FALSE@		&& latex main.tex
  
- helpfiles: 
--	cd $(top_builddir) && $(SHELL) helpers/extract_doc .
-+	cd $(top_builddir) && /bin/bash helpers/extract_doc .
+ @HAVE_PDFLATEXETAL_TRUE@install-data-local: tutorial.ps
+-@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
++@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
  
- install: docs install-am
+ @HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@install-data-local: tutorial.ps
+-@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
++@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
  
-diff -ur NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.am
---- NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.am	2005-05-09 10:30:18.000000000 +0200
-+++ NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.am	2006-10-03 17:03:50.000000000 +0200
-@@ -62,7 +62,7 @@
+ @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@install-data-local:
+ @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@	@echo Cannot generate tutorial: latex not found
+--- NuSMV-2.4.0/nusmv/doc/user-man/Makefile.in	2005-10-26 11:11:25.000000000 +0200
++++ NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.in	2006-10-03 17:04:09.000000000 +0200
+@@ -489,9 +489,9 @@
+ @HAVE_PDFLATEXETAL_FALSE@		&& latex main.tex
  
- if HAVE_LATEX
- install-data-local: tutorial.ps
--	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
-+	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
+ @HAVE_PDFLATEXETAL_TRUE@install-data-local: nusmv.ps
+-@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
++@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) nusmv.ps $(DESTDIR)$(datadir)/nusmv/doc/nusmv.ps
+ @HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@install-data-local: nusmv.ps
+-@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
++@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(DESTDIR)$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
+ @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@install-data-local:
+ @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@	@echo Cannot generate manual: latex not found
  
- else 
- install-data-local:
-diff -ur NuSMV-2.4.0/nusmv/doc/user-man/Makefile.am NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.am
---- NuSMV-2.4.0/nusmv/doc/user-man/Makefile.am	2005-10-26 11:11:25.000000000 +0200
-+++ NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.am	2006-10-03 17:04:09.000000000 +0200
-@@ -67,7 +67,7 @@
- 
- if HAVE_LATEX
- install-data-local: nusmv.ps
--	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
-+	$(install_sh_DATA) nusmv.ps $(DESTDIR)$(datadir)/nusmv/doc/nusmv.ps
- else 
- install-data-local:
- 	@echo Cannot generate manual: latex not found
 diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in
 --- NuSMV-2.4.0/nusmv/helpers/extract_doc.in	2005-03-03 13:12:59.000000000 +0100
 +++ NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in	2006-10-03 17:29:10.000000000 +0200
@@ -43,8 +36,8 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
  
  # FileName	[ extract_doc.in ]
  #
---- NuSMV-2.4.3/cudd-2.4.1.0/Makefile.orig	2007-05-10 19:37:13.000000000 +0200
-+++ NuSMV-2.4.3/cudd-2.4.1.0/Makefile	2007-09-14 15:33:55.000000000 +0200
+--- NuSMV-2.4.3/cudd-2.4.1.1/Makefile.orig	2007-05-10 19:37:13.000000000 +0200
++++ NuSMV-2.4.3/cudd-2.4.1.1/Makefile	2007-09-14 15:33:55.000000000 +0200
 @@ -55,7 +55,7 @@
  # These four are typical settings for optimized code with gcc.  The
  # last two also work with icc/ecc.
@@ -63,8 +56,8 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
  # Icc on i686.
  #XCFLAGS	= -ansi -align -ip -DHAVE_IEEE_754 -DBSD
  # Gcc on ia64.
---- NuSMV-2.4.3/cudd-2.4.1.0/Makefile_64bit~	2007-03-14 11:31:56.000000000 +0100
-+++ NuSMV-2.4.3/cudd-2.4.1.0/Makefile_64bit	2007-09-14 15:35:25.000000000 +0200
+--- NuSMV-2.4.3/cudd-2.4.1.1/Makefile_64bit~	2007-03-14 11:31:56.000000000 +0100
++++ NuSMV-2.4.3/cudd-2.4.1.1/Makefile_64bit	2007-09-14 15:35:25.000000000 +0200
 @@ -55,7 +55,7 @@
  # These four are typical settings for optimized code with gcc.  The
  # last two also work with icc/ecc.
@@ -73,24 +66,4 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
 +#ICFLAGS	= -g -O6
  #ICFLAGS	= -g -O3 -Wall
  #ICFLAGS	= -g -O3
- 
---- NuSMV-2.4.3/nusmv/src/Makefile.am~	2006-06-28 18:16:16.000000000 +0200
-+++ NuSMV-2.4.3/nusmv/src/Makefile.am	2007-09-14 15:48:35.000000000 +0200
-@@ -91,4 +91,6 @@
- 	$(mbp_libs)              \
- 	$(sa_libs)               \
- 	$(mathsat_libs)          \
-+	$(expat_libs)            \
-+	$(readline_libs)         \
- 	sm/libsm.la              
---- NuSMV-2.4.3/nusmv/Makefile.am~	2007-03-28 15:49:05.000000000 +0200
-+++ NuSMV-2.4.3/nusmv/Makefile.am	2007-09-14 15:48:37.000000000 +0200
-@@ -116,7 +116,7 @@
- libnusmv_la_LIBADD = $(top_builddir)/src/libnusmvcore.la \
- 	-L$(top_srcdir)/$(CUDD_DIR)/lib \
- 	-lcudd -lcudd_util -lmtr -lst   \
--        $(readline_libs) $(zchaff_libs) $(minisat_libs) $(expat_libs)
-+        $(zchaff_libs) $(minisat_libs)
- 
- libnusmv_la_DEPENDENCIES = $(top_builddir)/src/libnusmvcore.la $(CUDD_DEPENDENCY)
  
