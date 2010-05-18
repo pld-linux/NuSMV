@@ -8,12 +8,12 @@
 Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
-Version:	2.4.3
-Release:	3
+Version:	2.5.0
+Release:	1
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
-# Source0-md5:	f9fb88139b388c6ba8d31b0ad1ce5254
+# Source0-md5:	904c06c57d3882bc5a10f09ca0ba9a06
 Source1:	http://minisat.se/downloads/minisat2-%{minisat_ver}.zip
 # Source1-md5:	fb12db9a13f86a2133758abfba239546
 Source2:	http://www.princeton.edu/~chaff/zchaff/zchaff.%{zchaff_ver}.zip
@@ -121,25 +121,22 @@ cd ..
 
 cd nusmv
 
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
+/bin/bash %configure \
 	--enable-shared \
 	--enable-psl \
 	%{?with_zchaff:--enable-zchaff} \
 	--enable-minisat
 
 %{__make}
-%{__make} docs
+%{__make} docs \
+	SHELL=/bin/bash
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} -j1 -C nusmv install \
+	SHELL=/bin/bash \
 	DESTDIR=$RPM_BUILD_ROOT
 
 cp -a nusmv/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
@@ -159,8 +156,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc nusmv/doc/user-man/nusmv.p*
 %doc nusmv/doc/html
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %ghost %{_libdir}/libnusmv*.so.0
-%attr(755,root,root) %{_libdir}/libnusmv*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/lib*smv*.so.0
+%attr(755,root,root) %{_libdir}/lib*smv*.so.*.*.*
 %dir %{_datadir}/nusmv
 %{_datadir}/nusmv/contrib
 %{_datadir}/nusmv/help
@@ -169,12 +166,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnusmv*.so
-%{_libdir}/libnusmv*.la
+%attr(755,root,root) %{_libdir}/lib*smv*.so
+%{_libdir}/lib*smv*.la
 %{_includedir}/cudd*
 %{_includedir}/nusmv
 %{_pkgconfigdir}/*
 
 %files static
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libnusmv*.a
+%attr(755,root,root) %{_libdir}/lib*smv*.a

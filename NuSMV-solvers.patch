@@ -1,26 +1,7 @@
-diff -ur NuSMV-2.4.3/MiniSat/minisat-default.in NuSMV-2.4.3.solvers/MiniSat/minisat-default.in
---- NuSMV-2.4.3/MiniSat/minisat-default.in	2007-03-16 15:32:59.000000000 +0100
-+++ NuSMV-2.4.3.solvers/MiniSat/minisat-default.in	2009-04-22 12:57:50.000000000 +0200
-@@ -13,12 +13,13 @@
- #minisat_zip=MiniSat_v${minisat_ver}_src.zip
- #minisat_dir=MiniSat_v${minisat_ver}
- 
--minisat_ver=061208
-+minisat_ver=070721
- minisat_zip=minisat2-${minisat_ver}.zip
- minisat_dir=minisat
- 
- # ----------------------------------------------------------------------
--minisat_patch=MiniSat_v${minisat_ver}_nusmv.patch
-+#minisat_patch=MiniSat_v${minisat_ver}_nusmv.patch
-+minisat_patch=MiniSat_v061208_nusmv.patch
- minisat_link=MiniSat_v${minisat_ver}
- minisat_libname=MiniSat
- minisat_ifcname=Solver_C.h
-diff -ur NuSMV-2.4.3/MiniSat/MiniSat_v061208_nusmv.patch NuSMV-2.4.3.solvers/MiniSat/MiniSat_v061208_nusmv.patch
---- NuSMV-2.4.3/MiniSat/MiniSat_v061208_nusmv.patch	2007-03-27 18:13:30.000000000 +0200
-+++ NuSMV-2.4.3.solvers/MiniSat/MiniSat_v061208_nusmv.patch	2009-04-22 13:02:51.000000000 +0200
-@@ -270,11 +270,27 @@
+diff -ur NuSMV-2.4.3/MiniSat/MiniSat_v070721_nusmv.patch NuSMV-2.4.3.solvers/MiniSat/MiniSat_v070721_nusmv.patch
+--- NuSMV-2.4.3/MiniSat/MiniSat_v070721_nusmv.patch	2007-03-27 18:13:30.000000000 +0200
++++ NuSMV-2.4.3.solvers/MiniSat/MiniSat_v070721_nusmv.patch	2009-04-22 13:02:51.000000000 +0200
+@@ -447,11 +447,23 @@
   
   ## Clean rule
   clean:
@@ -36,17 +17,12 @@ diff -ur NuSMV-2.4.3/MiniSat/MiniSat_v061208_nusmv.patch NuSMV-2.4.3.solvers/Min
 + LFLAGS    = -lz
 + 
 + include ../mtl/template.mk
- diff -Naur minisat_ORIG/simp/Makefile minisat/simp/Makefile
- --- minisat_ORIG/simp/Makefile	2006-10-02 14:09:42.000000000 +0200
- +++ minisat/simp/Makefile	2007-03-27 17:49:56.000000000 +0200
--@@ -5,7 +5,8 @@
+ diff -Naur minisat.ORIG/simp/Makefile minisat/simp/Makefile
+ --- minisat.ORIG/simp/Makefile	2006-10-02 14:09:42.000000000 +0200
+ +++ minisat/simp/Makefile	2010-01-27 12:44:25.000000000 +0100
+ @@ -5,7 +5,8 @@
 - CFLAGS    = -I$(MTL) -I$(CORE) -Wall -ffloat-store
-+@@ -5,10 +5,11 @@
-+ CORE      = ../core
-+ CHDRS     = $(wildcard *.h) $(wildcard $(MTL)/*.h)
-+ EXEC      = minisat
-+-CFLAGS    = -I$(MTL) -I$(CORE) -Wall -ffloat-store
-++CFLAGS    = -I$(MTL) -I$(CORE) -Wall -ffloat-store $(OPTFLAGS)
++ CFLAGS    = -I$(MTL) -I$(CORE) -Wall -ffloat-store $(OPTFLAGS)
   LFLAGS    = -lz
   
  -CSRCS     = $(wildcard *.C)
@@ -55,11 +31,11 @@ diff -ur NuSMV-2.4.3/zchaff/zchaff.64bit.2007.3.12_nusmv.patch NuSMV-2.4.3.solve
 +++ NuSMV-2.4.3.solvers/zchaff/zchaff.64bit.2007.3.12_nusmv.patch	2009-04-22 12:59:23.000000000 +0200
 @@ -1,11 +1,11 @@
 -diff -Naur zchaff64_ORIG/Makefile zchaff64/Makefile
----- zchaff64_ORIG/Makefile	2007-03-14 03:48:02.000000000 +0100
--+++ zchaff64/Makefile	2007-03-16 14:46:24.000000000 +0100
+---- zchaff64_ORIG/Makefile	2009-05-06 13:17:49.000000000 +0200
+-+++ zchaff64/Makefile	2009-05-06 13:19:21.000000000 +0200
 +diff -Naur zchaff_ORIG/Makefile zchaff/Makefile
-+--- zchaff_ORIG/Makefile	2007-03-14 03:48:02.000000000 +0100
-++++ zchaff/Makefile	2007-03-16 14:46:24.000000000 +0100
++--- zchaff_ORIG/Makefile	2009-05-06 13:17:49.000000000 +0200
+++++ zchaff/Makefile	2009-05-06 13:19:21.000000000 +0200
  @@ -1,5 +1,6 @@
   CC = g++ -Wall
  -CFLAGS = -O3 
@@ -74,19 +50,32 @@ diff -ur NuSMV-2.4.3/zchaff/zchaff.64bit.2007.3.12_nusmv.patch NuSMV-2.4.3.solve
   
   clean:	
   	rm -f *.o libsat.a zchaff *wrapper.cpp zminimal zverify_df cnf_stats SAT_C.h
+-diff -Naur zchaff64_ORIG/zchaff_dbase.cpp zchaff64/zchaff_dbase.cpp
+---- zchaff64_ORIG/zchaff_dbase.cpp	2009-05-06 13:17:49.000000000 +0200
+-+++ zchaff64/zchaff_dbase.cpp	2009-05-06 13:21:39.000000000 +0200
++diff -Naur zchaff_ORIG/zchaff_dbase.cpp zchaff/zchaff_dbase.cpp
++--- zchaff_ORIG/zchaff_dbase.cpp	2009-05-06 13:17:49.000000000 +0200
+++++ zchaff/zchaff_dbase.cpp	2009-05-06 13:21:39.000000000 +0200
+ @@ -33,6 +33,7 @@
+  // of the possibility of those damages.
+  // ********************************************************************/
+@@ -47,9 +47,9 @@
+  #include <iostream>
+  #include <vector>
+  #include <set>
 -diff -Naur zchaff64_ORIG/zchaff_utils.cpp zchaff64/zchaff_utils.cpp
----- zchaff64_ORIG/zchaff_utils.cpp	2007-03-14 03:48:02.000000000 +0100
--+++ zchaff64/zchaff_utils.cpp	2007-03-16 14:48:56.000000000 +0100
+---- zchaff64_ORIG/zchaff_utils.cpp	2009-05-06 13:17:49.000000000 +0200
+-+++ zchaff64/zchaff_utils.cpp	2009-05-06 13:19:21.000000000 +0200
 +diff -Naur zchaff_ORIG/zchaff_utils.cpp zchaff/zchaff_utils.cpp
-+--- zchaff_ORIG/zchaff_utils.cpp	2007-03-14 03:48:02.000000000 +0100
-++++ zchaff/zchaff_utils.cpp	2007-03-16 14:48:56.000000000 +0100
++--- zchaff_ORIG/zchaff_utils.cpp	2009-05-06 13:17:49.000000000 +0200
+++++ zchaff/zchaff_utils.cpp	2009-05-06 13:19:21.000000000 +0200
  @@ -38,7 +38,9 @@
   #include <stdlib.h>
   #include <unistd.h>
 diff -ur NuSMV-2.4.3/zchaff/zchaff-default.in NuSMV-2.4.3.solvers/zchaff/zchaff-default.in
 --- NuSMV-2.4.3/zchaff/zchaff-default.in	2007-03-16 15:33:00.000000000 +0100
 +++ NuSMV-2.4.3.solvers/zchaff/zchaff-default.in	2009-04-22 12:58:24.000000000 +0200
-@@ -9,16 +9,17 @@
+@@ -9,17 +9,18 @@
  # ----------------------------------------------------------------------
  
  # this is for the older version
@@ -99,15 +88,17 @@ diff -ur NuSMV-2.4.3/zchaff/zchaff-default.in NuSMV-2.4.3.solvers/zchaff/zchaff-
  
 -zchaff_ver=2007.3.12
 -zchaff_zip=zchaff.64bit.$zchaff_ver.zip
+-zchaff_url="http://www.princeton.edu/~chaff/zchaff/${zchaff_zip}"
 -zchaff_dir=zchaff64
 +#zchaff_ver=2007.3.12
 +#zchaff_zip=zchaff.64bit.$zchaff_ver.zip
++#zchaff_url="http://www.princeton.edu/~chaff/zchaff/${zchaff_zip}"
 +#zchaff_dir=zchaff64
  
  # ----------------------------------------------------------------------
 -zchaff_patch=zchaff.64bit.${zchaff_ver}_nusmv.patch
 +#zchaff_patch=zchaff.64bit.${zchaff_ver}_nusmv.patch
 +zchaff_patch=zchaff.64bit.2007.3.12_nusmv.patch
- zchaff_link=../zchaff_v${zchaff_ver}
+ zchaff_link=zchaff_v${zchaff_ver}
  zchaff_libname=sat
  zchaff_ifcname=SAT_C.h
