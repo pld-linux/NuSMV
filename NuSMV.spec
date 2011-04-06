@@ -40,6 +40,9 @@ BuildRequires:	texlive-makeindex
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+# a lot of inter-library deps confusing install_post_check_so
+%define		no_install_post_check_so	1
+
 %description
 NuSMV is a reimplementation and extension of SMV, the first model
 checker based on BDDs. NuSMV has been designed to be an open
@@ -102,14 +105,14 @@ install %{SOURCE2} zchaff/
 %patch1 -p1
 
 %build
-ICFLAGS="%{rpmcflags}"
+ICFLAGS="%{rpmcflags} -fPIC"
 export ICFLAGS
 
 cd MiniSat/
-OPTFLAGS="%{rpmcxxflags}" ./build.sh
+OPTFLAGS="%{rpmcxxflags} -fPIC" COPTIMIZE="%{rpmcxxflags} -fPIC" ./build.sh
 %if %{with zchaff}
 cd ../zchaff
-OPTFLAGS="%{rpmcxxflags}" ./build.sh
+OPTFLAGS="%{rpmcxxflags} -fPIC" ./build.sh
 %endif
 cd ../cudd-*
 %ifarch %{x8664}
@@ -121,27 +124,32 @@ cd ..
 
 cd nusmv
 
-/bin/bash %configure \
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
+%configure \
 	--enable-shared \
-	--enable-psl \
 	%{?with_zchaff:--enable-zchaff} \
 	--enable-minisat
 
 %{__make}
-%{__make} docs \
-	SHELL=/bin/bash
+
+%{__make} docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %{__make} -j1 -C nusmv install \
-	SHELL=/bin/bash \
+	INSTALL_DATA="cp -a" \
+	INSTALL_HEADER="install -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 cp -a nusmv/examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-rm -r $RPM_BUILD_ROOT%{_datadir}/nusmv/{doc,examples,LGPL*,NEWS,README*}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/nusmv/{doc,examples,LGPL*,NEWS,README*}
+%{__rm} -r $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
