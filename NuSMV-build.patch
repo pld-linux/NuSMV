@@ -1,32 +1,36 @@
---- NuSMV-2.4.0/nusmv/doc/tutorial/Makefile.in	2005-05-09 10:30:18.000000000 +0200
-+++ NuSMV-2.4.0-ok/nusmv/doc/tutorial/Makefile.in	2006-10-03 17:03:50.000000000 +0200
-@@ -470,9 +470,9 @@
- @HAVE_PDFLATEXETAL_FALSE@		&& latex main.tex
+--- NuSMV-2.5.2/nusmv/doc/tutorial/Makefile.am~	2010-10-29 13:15:50.000000000 +0200
++++ NuSMV-2.5.2/nusmv/doc/tutorial/Makefile.am	2011-04-06 11:37:20.223970540 +0200
+@@ -101,12 +101,12 @@
  
- @HAVE_PDFLATEXETAL_TRUE@install-data-local: tutorial.ps
--@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
-+@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
+ if HAVE_PDFLATEXETAL
+ install-data-local: tutorial.pdf
+-	$(install_sh_DATA) tutorial.pdf $(datadir)/nusmv/doc/tutorial.pdf
++	$(install_sh_DATA) tutorial.pdf $(DESTDIR)$(datadir)/nusmv/doc/tutorial.pdf
  
- @HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@install-data-local: tutorial.ps
--@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
-+@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
+ else
+ if HAVE_LATEX
+ install-data-local: tutorial.ps
+-	$(install_sh_DATA) tutorial.ps $(datadir)/nusmv/doc/tutorial.ps
++	$(install_sh_DATA) tutorial.ps $(DESTDIR)$(datadir)/nusmv/doc/tutorial.ps
  
- @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@install-data-local:
- @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@	@echo Cannot generate tutorial: latex not found
---- NuSMV-2.4.0/nusmv/doc/user-man/Makefile.in	2005-10-26 11:11:25.000000000 +0200
-+++ NuSMV-2.4.0-ok/nusmv/doc/user-man/Makefile.in	2006-10-03 17:04:09.000000000 +0200
-@@ -489,9 +489,9 @@
- @HAVE_PDFLATEXETAL_FALSE@		&& latex main.tex
+ else 
+ install-data-local:
+--- NuSMV-2.5.2/nusmv/doc/user-man/Makefile.am~	2010-10-29 13:15:50.000000000 +0200
++++ NuSMV-2.5.2/nusmv/doc/user-man/Makefile.am	2011-04-06 11:38:19.714970540 +0200
+@@ -121,11 +121,11 @@
  
- @HAVE_PDFLATEXETAL_TRUE@install-data-local: nusmv.ps
--@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
-+@HAVE_PDFLATEXETAL_TRUE@	$(install_sh_DATA) nusmv.ps $(DESTDIR)$(datadir)/nusmv/doc/nusmv.ps
- @HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@install-data-local: nusmv.ps
--@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
-+@HAVE_LATEX_TRUE@@HAVE_PDFLATEXETAL_FALSE@	$(DESTDIR)$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
- @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@install-data-local:
- @HAVE_LATEX_FALSE@@HAVE_PDFLATEXETAL_FALSE@	@echo Cannot generate manual: latex not found
- 
+ if HAVE_PDFLATEXETAL
+ install-data-local: nusmv.pdf
+-	$(install_sh_DATA) nusmv.pdf $(datadir)/nusmv/doc/nusmv.pdf
++	$(install_sh_DATA) nusmv.pdf $(DESTDIR)$(datadir)/nusmv/doc/nusmv.pdf
+ else
+ if HAVE_LATEX
+ install-data-local: nusmv.ps
+-	$(install_sh_DATA) nusmv.ps $(datadir)/nusmv/doc/nusmv.ps
++	$(install_sh_DATA) nusmv.ps $(DESTDIR)$(datadir)/nusmv/doc/nusmv.ps
+ else 
+ install-data-local:
+ 	@echo Cannot generate manual: latex not found
 diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in
 --- NuSMV-2.4.0/nusmv/helpers/extract_doc.in	2005-03-03 13:12:59.000000000 +0100
 +++ NuSMV-2.4.0-ok/nusmv/helpers/extract_doc.in	2006-10-03 17:29:10.000000000 +0200
@@ -51,8 +55,8 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
  # Gcc 2.8.1 or higher on i686.
  #XCFLAGS	= -mcpu=pentiumpro -malign-double -DHAVE_IEEE_754 -DBSD
  # Gcc 3.2.2 or higher on i686.
--XCFLAGS	= -mcpu=pentium4 -malign-double -DHAVE_IEEE_754 -DBSD -DSIZEOF_VOID_P=4 -DSIZEOF_LONG=4 -DSIZEOF_INT=4
-+XCFLAGS	= -malign-double -DHAVE_IEEE_754 -DBSD -DSIZEOF_VOID_P=4 -DSIZEOF_LONG=4 -DSIZEOF_INT=4
+-XCFLAGS	= -mcpu=pentium4 -malign-double -DHAVE_IEEE_754 -DBSD -DNUSMV_SIZEOF_VOID_P=4 -DNUSMV_SIZEOF_LONG=4 -DNUSMV_SIZEOF_INT=4
++XCFLAGS	= -malign-double -DHAVE_IEEE_754 -DBSD -DNUSMV_SIZEOF_VOID_P=4 -DNUSMV_SIZEOF_LONG=4 -DNUSMV_SIZEOF_INT=4
  # Icc on i686.
  #XCFLAGS	= -ansi -align -ip -DHAVE_IEEE_754 -DBSD
  # Gcc on ia64.
@@ -66,4 +70,61 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
 +#ICFLAGS	= -g -O6
  #ICFLAGS	= -g -O3 -Wall
  #ICFLAGS	= -g -O3
+ 
+--- NuSMV-2.5.2/nusmv/configure.ac~	2010-10-29 13:15:51.000000000 +0200
++++ NuSMV-2.5.2/nusmv/configure.ac	2011-04-06 11:49:45.772970540 +0200
+@@ -4,6 +4,8 @@
+ 
+ AC_INIT(NuSMV, 2.5.2, nusmv-users@fbk.eu)
+ 
++AC_CONFIG_MACRO_DIR([m4])
++
+ # where to look for install.sh and other helpers
+ AC_CONFIG_AUX_DIR(helpers)
+ 
+--- NuSMV-2.5.2/nusmv/acinclude.m4~	2010-10-29 13:15:51.000000000 +0200
++++ NuSMV-2.5.2/nusmv/acinclude.m4	2011-04-06 11:52:02.728970548 +0200
+@@ -177,7 +177,6 @@
+ #   modified version of the Autoconf Macro, you may extend this special
+ #   exception to the GPL to apply to your modified version as well.
+ 
+-#serial 10
+ 
+ AC_DEFUN([AX_PREFIX_CONFIG_H],[dnl
+ AC_PREREQ([2.58])
+--- NuSMV-2.5.2/nusmv/configure.ac~	2011-04-06 12:14:21.103822539 +0200
++++ NuSMV-2.5.2/nusmv/configure.ac	2011-04-06 12:29:40.711202079 +0200
+@@ -669,11 +669,11 @@
+ done
+ 
+ dep_addons=
+-function addon_calc_dep() # calculates dependencies of given addon
++addon_calc_dep() # calculates dependencies of given addon
+ {
+   addon=$1
+   __addon_deps=${addon}_deps
+-  deps=${!__addon_deps}
++  eval deps=\$${__addon_deps}
+   
+   for dep in $deps; do
+     _tmp=$(echo "$dep_addons $found_addons $alias_addons" | grep -w $dep -) # already taken?
+@@ -729,7 +729,7 @@
+ # Outputs 
+ for addon in $all_addons; do
+   _vname=have_addon_${addon}
+-  _have_addon=${!_vname}
++  eval _have_addon=\$${_vname}
+   case $addon in
+   compass) 
+     if test $_have_addon == 1; then 
+--- NuSMV-2.5.2/nusmv/helpers/extract_doc.in~	2011-04-06 12:42:33.778202079 +0200
++++ NuSMV-2.5.2/nusmv/helpers/extract_doc.in	2011-04-06 12:47:12.111202081 +0200
+@@ -126,7 +126,7 @@
+ 
+ 
+ 
+-function extractcommand() {
++extractcommand() {
+     cfile=$1
+     htmldir=$2
  
