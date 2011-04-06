@@ -1,10 +1,41 @@
 diff -ur NuSMV-2.4.3/MiniSat/MiniSat_v070721_nusmv.patch NuSMV-2.4.3.solvers/MiniSat/MiniSat_v070721_nusmv.patch
 --- NuSMV-2.4.3/MiniSat/MiniSat_v070721_nusmv.patch	2007-03-27 18:13:30.000000000 +0200
 +++ NuSMV-2.4.3.solvers/MiniSat/MiniSat_v070721_nusmv.patch	2009-04-22 13:02:51.000000000 +0200
-@@ -447,11 +447,23 @@
+@@ -434,7 +434,20 @@
+  CFLAGS    ?= -Wall
+  LFLAGS    ?= -Wall
+  
+-@@ -70,7 +71,7 @@
++@@ -60,18 +60,18 @@
++ ## Build rule
++ %.o %.op %.od %.or:	%.C
++ 	@echo Compiling: "$@ ( $< )"
++-	@$(CXX) $(CFLAGS) -c -o $@ $<
+++	$(CXX) $(CFLAGS) -c -o $@ $<
++ 
++ ## Linking rules (standard/profile/debug/release)
++ $(EXEC) $(EXEC)_profile $(EXEC)_debug $(EXEC)_release $(EXEC)_static:
++ 	@echo Linking: "$@ ( $^ )"
++-	@$(CXX) $^ $(LFLAGS) -o $@
+++	$(CXX) $^ $(LFLAGS) -o $@
++ 
++ ## Library rule
+  lib$(LIB).a lib$(LIB)d.a:
+  	@echo Library: "$@ ( $^ )"
+  	@rm -f $@
+@@ -443,11 +456,32 @@
   
   ## Clean rule
   clean:
++@@ -81,7 +81,7 @@
++ ## Make dependencies
++ depend.mk: $(CSRCS) $(CHDRS)
++ 	@echo Making dependencies ...
++-	@$(CXX) $(CFLAGS) -MM $(CSRCS) > depend.mk
+++	$(CXX) $(CFLAGS) -MM $(CSRCS) > depend.mk
++ 	@cp depend.mk /tmp/depend.mk.tmp
++ 	@sed "s/o:/op:/" /tmp/depend.mk.tmp >> depend.mk
++ 	@sed "s/o:/od:/" /tmp/depend.mk.tmp >> depend.mk
 +diff -ur minisat_ORIG/core/Makefile minisat/core/Makefile
 +--- minisat_ORIG/core/Makefile	2006-10-02 14:09:37.000000000 +0200
 ++++ minisat/core/Makefile	2009-04-22 13:01:08.000000000 +0200
