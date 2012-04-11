@@ -164,8 +164,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc nusmv/doc/user-man/nusmv.p*
 %doc nusmv/doc/html
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %ghost %{_libdir}/lib*smv*.so.0
 %attr(755,root,root) %{_libdir}/lib*smv*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/lib*smv*.so.0
+%attr(755,root,root) %{_libdir}/librbcdag.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/librbcdag.so.0
 %dir %{_datadir}/nusmv
 %{_datadir}/nusmv/contrib
 %{_datadir}/nusmv/help
@@ -175,6 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*smv*.so
+%attr(755,root,root) %{_libdir}/librbcdag.so
 %{_includedir}/cudd*
 %{_includedir}/nusmv
 %{_pkgconfigdir}/*
@@ -182,3 +185,4 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*smv*.a
+%attr(755,root,root) %{_libdir}/librbcdag.a
