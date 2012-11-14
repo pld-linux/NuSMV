@@ -1,0 +1,62 @@
+--- NuSMV-2.5.4/nusmv/src/prop/Prop.c~	2011-10-21 17:41:39.000000000 +0200
++++ NuSMV-2.5.4/nusmv/src/prop/Prop.c	2012-11-14 14:47:55.753785880 +0100
+@@ -1634,7 +1634,7 @@
+   }
+ 
+   indent(file);
+-  fprintf(file, prop);
++  fputs(prop, file);
+ 
+   if (len > 40) {
+     fprintf(file, " [...]");
+--- NuSMV-2.5.4/nusmv/src/cinit/cinitData.c~	2011-10-12 11:04:37.000000000 +0200
++++ NuSMV-2.5.4/nusmv/src/cinit/cinitData.c	2012-11-14 14:50:21.413780736 +0100
+@@ -439,7 +439,7 @@
+     else {
+       const char* preps_fmt = "Warning: there are no available preprocessors";
+       preps_tmp = ALLOC(char, strlen(preps_fmt) + 1);
+-      sprintf(preps_tmp, preps_fmt);
++      sprintf(preps_tmp, "%s", preps_fmt);
+     }
+ 
+     tmp = ALLOC(char, strlen(fmt) + strlen(preps_tmp) + 1);
+--- NuSMV-2.5.4/nusmv/src/hrc/dumpers/HrcDumper_private.h~	2011-10-12 11:04:37.000000000 +0200
++++ NuSMV-2.5.4/nusmv/src/hrc/dumpers/HrcDumper_private.h	2012-11-14 14:57:59.607097908 +0100
+@@ -106,13 +106,13 @@
+ #define _HRC_DUMP_STR(x)          \
+   {                               \
+     hrc_dumper_dump_indent(self); \
+-    fprintf(self->fout, x);       \
++    fputs(x, self->fout);       \
+   }
+ 
+ #define _HRC_DUMP_STR_NL(x)                                           \
+   {                                                                   \
+     hrc_dumper_dump_indent(self);                                     \
+-    fprintf(self->fout, x);                                           \
++    fputs(x, self->fout);                                           \
+     hrc_dumper_nl(self);                                              \
+   }
+ 
+--- NuSMV-2.5.4/nusmv/src/hrc/dumpers/HrcDumperXml_private.h~	2011-10-12 11:04:37.000000000 +0200
++++ NuSMV-2.5.4/nusmv/src/hrc/dumpers/HrcDumperXml_private.h	2012-11-14 14:59:17.827095149 +0100
+@@ -92,7 +92,7 @@
+ #define _HRC_DUMP_STR_NL(x)                                           \
+   {                                                                   \
+     hrc_dumper_dump_indent(self);                                     \
+-    fprintf(self->fout, x);                                           \
++    fputs(x, self->fout);                                           \
+     if (self->use_indentation) {                                      \
+       hrc_dumper_nl(self);                                            \
+     }                                                                 \
+--- NuSMV-2.5.4/nusmv/src/addons_core/compass/sigref/sigrefWrite.c~	2011-10-12 11:04:36.000000000 +0200
++++ NuSMV-2.5.4/nusmv/src/addons_core/compass/sigref/sigrefWrite.c	2012-11-14 15:00:08.280426703 +0100
+@@ -509,7 +509,7 @@
+ 
+   DdManager* dd = BddEnc_get_dd_manager(enc);
+ 
+-  fprintf(file, SIGREF_HEADER);
++  fprintf(file, "%s", SIGREF_HEADER);
+   fprintf(file, "\n<%s ", MODEL_TAG);
+   fprintf(file, MODEL_FM, MODEL_TYPE);
+   fprintf(file, ">\n");
