@@ -9,7 +9,7 @@ Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.5.4
-Release:	3
+Release:	4
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
