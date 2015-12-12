@@ -118,3 +118,56 @@ diff -ur NuSMV-2.4.0/nusmv/helpers/extract_doc.in NuSMV-2.4.0-ok/nusmv/helpers/e
      cfile=$1
      htmldir=$2
  
+--- NuSMV-2.5.4/MiniSat/minisat/simp/SimpSolver.C~	2015-12-12 22:07:12.000000000 +0100
++++ NuSMV-2.5.4/MiniSat/minisat/simp/SimpSolver.C	2015-12-12 22:09:59.149163015 +0100
+@@ -37,7 +37,7 @@ SimpSolver::SimpSolver() :
+   , bwdsub_assigns     (0)
+ {
+     vec<Lit> dummy(1,lit_Undef);
+-    bwdsub_tmpunit   = Clause_new(dummy);
++    bwdsub_tmpunit   = Clause::Clause_new(dummy);
+     remove_satisfied = false;
+ }
+ 
+--- NuSMV-2.5.4/MiniSat/minisat/core/SolverTypes.h~	2006-11-10 22:54:30.000000000 +0100
++++ NuSMV-2.5.4/MiniSat/minisat/core/SolverTypes.h	2015-12-12 22:14:08.982282692 +0100
+@@ -119,7 +119,7 @@ public:
+ 
+     // -- use this function instead:
+     template<class V>
+-    friend Clause* Clause_new(const V& ps, bool learnt = false) {
++    static Clause* Clause_new(const V& ps, bool learnt = false) {
+         assert(sizeof(Lit)      == sizeof(uint32_t));
+         assert(sizeof(float)    == sizeof(uint32_t));
+         void* mem = malloc(sizeof(Clause) + sizeof(uint32_t)*(ps.size()));
+--- NuSMV-2.5.4/MiniSat/minisat/simp/SimpSolver.C~	2015-12-12 22:14:47.000000000 +0100
++++ NuSMV-2.5.4/MiniSat/minisat/simp/SimpSolver.C	2015-12-12 22:16:31.295964939 +0100
+@@ -489,7 +489,7 @@ bool SimpSolver::eliminateVar(Var v, boo
+     elimtable[v].order = elimorder++;
+     assert(elimtable[v].eliminated.size() == 0);
+     for (int i = 0; i < cls.size(); i++){
+-        elimtable[v].eliminated.push(Clause_new(*cls[i]));
++        elimtable[v].eliminated.push(Clause::Clause_new(*cls[i]));
+         removeClause(*cls[i]); }
+ 
+     // Produce clauses in cross product:
+--- NuSMV-2.5.4/MiniSat/minisat/core/Solver.C~	2015-12-12 22:16:49.000000000 +0100
++++ NuSMV-2.5.4/MiniSat/minisat/core/Solver.C	2015-12-12 22:17:47.084605634 +0100
+@@ -114,7 +114,7 @@ bool Solver::addClause(vec<Lit>& ps)
+         uncheckedEnqueue(ps[0]);
+         return ok = (propagate() == NULL);
+     }else{
+-        Clause* c = Clause_new(ps, false);
++        Clause* c = Clause::Clause_new(ps, false);
+         clauses.push(c);
+         attachClause(*c);
+     }
+@@ -598,7 +598,7 @@ lbool Solver::search(int nof_conflicts,
+             if (learnt_clause.size() == 1){
+                 uncheckedEnqueue(learnt_clause[0]);
+             }else{
+-                Clause* c = Clause_new(learnt_clause, true);
++                Clause* c = Clause::Clause_new(learnt_clause, true);
+                 learnts.push(c);
+                 attachClause(*c);
+                 claBumpActivity(*c);

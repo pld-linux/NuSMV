@@ -9,7 +9,7 @@ Summary:	New Symbolic Model Verifier
 Summary(pl.UTF-8):	Nowy weryfikator modeli symbolicznych
 Name:		NuSMV
 Version:	2.5.4
-Release:	7
+Release:	8
 License:	LGPL
 Group:		Applications
 Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
@@ -98,11 +98,13 @@ Statyczna biblioteka NuSMV.
 
 %prep
 %setup -q
-%patch0 -p1
-
 install %{SOURCE1} MiniSat/
+cd MiniSat
+unzip -q *.zip
+cd ..
 install %{SOURCE2} zchaff/
 
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
