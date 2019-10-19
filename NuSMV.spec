@@ -12,7 +12,7 @@ Version:	2.5.4
 Release:	11
 License:	LGPL
 Group:		Applications
-Source0:	http://nusmv.irst.itc.it/distrib/%{name}-%{version}.tar.gz
+Source0:	http://nusmv.fbk.eu/distrib/%{name}-%{version}.tar.gz
 # Source0-md5:	4d8ae6136fbd916d875cd48f82d5f327
 Source1:	http://minisat.se/downloads/minisat2-%{minisat_ver}.zip
 # Source1-md5:	fb12db9a13f86a2133758abfba239546
@@ -22,7 +22,7 @@ Patch0:		%{name}-build.patch
 Patch1:		%{name}-solvers.patch
 Patch2:		format-security.patch
 Patch3:		fork.patch
-URL:		http://nusmv.irst.itc.it/
+URL:		http://nusmv.fbk.eu/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel
