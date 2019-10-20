@@ -1,0 +1,11 @@
+--- NuSMV-2.5.4/MiniSat/MiniSat_v070721_nusmv.patch~	2019-10-20 11:47:17.000000000 +0200
++++ NuSMV-2.5.4/MiniSat/MiniSat_v070721_nusmv.patch	2019-10-20 11:48:41.416405292 +0200
+@@ -598,7 +598,7 @@
+ +  return (MiniSat_ptr)new SimpSolver();
+ +}
+ +
+-+extern "C"void MiniSat_Delete(MiniSat_ptr ms)
+++extern "C" void MiniSat_Delete(MiniSat_ptr ms)
+ +{
+ +  delete (SimpSolver *)ms;
+ +}
